@@ -1,0 +1,26 @@
+{
+  "name": "aagjalpankaj/laravel-log-validator",
+  "description": "Laravel package that helps you to standardize logs",
+  "keywords": ["laravel", "log", "validator", "standardization", "logging"],
+  "license": "MIT",
+  "require": {
+	"php": "^8.2",
+    "monolog/monolog": "^3.9"
+  },
+  "autoload": {
+	"psr-4": {
+	  "Aagjalpankaj\\LogValidator\\": "src/"
+	}
+  },
+  "scripts": {
+  },
+  "extra": {
+  },
+  "config": {
+	"preferred-install": "dist",
+	"allow-plugins": {
+	}
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
