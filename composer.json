@@ -5,21 +5,41 @@
   "license": "MIT",
   "require": {
 	"php": "^8.2",
-    "monolog/monolog": "^3.9"
+    "monolog/monolog": "^3.9",
+    "illuminate/support": "^12.6",
+    "illuminate/log": "^12.6",
+    "illuminate/config": "^12.6",
+    "symfony/error-handler": "^7.2"
+  },
+  "require-dev": {
+	"pestphp/pest": "^3.8",
+    "laravel/pint": "^1.21",
+    "rector/rector": "^2.0"
   },
   "autoload": {
 	"psr-4": {
-	  "Aagjalpankaj\\LogValidator\\": "src/"
+	  "Aagjalpankaj\\LaravelLogValidator\\": "src/"
+	}
+  },
+  "autoload-dev": {
+	"psr-4": {
+	  "Tests\\": "tests/"
 	}
   },
   "scripts": {
   },
   "extra": {
+	"laravel": {
+	  "providers": [
+		"Aagjalpankaj\\LaravelLogValidator\\ServiceProvider"
+	  ]
+	}
   },
   "config": {
 	"preferred-install": "dist",
 	"allow-plugins": {
-	}
+      "pestphp/pest-plugin": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true
