@@ -56,3 +56,13 @@ test('log context has more than 10 fields', function () {
         Log::info('Invalid context test', $invalidContext);
     })->toThrow(UnprocessableLogException::class);
 });
+
+test('log context has a field with no camelcase', function () {
+    $invalidContext = [
+        'order_id' => 'value1',
+    ];
+
+    expect(function () use ($invalidContext) {
+        Log::info('Invalid context test', $invalidContext);
+    })->toThrow(UnprocessableLogException::class);
+});
