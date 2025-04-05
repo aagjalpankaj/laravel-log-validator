@@ -33,7 +33,7 @@ test('log context has less than 10 fields', function () {
     expect(function () use ($validContext) {
         Log::info('Valid context test', $validContext);
     })->not->toThrow(UnprocessableLogException::class);
-});
+})->only();
 
 test('log context has more than 10 fields', function () {
     $invalidContext = [

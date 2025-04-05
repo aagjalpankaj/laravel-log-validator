@@ -2,6 +2,7 @@
 
 namespace Aagjalpankaj\LaravelLogValidator;
 
+use Aagjalpankaj\LaravelLogValidator\Processors\EnvironmentProcessor;
 use Aagjalpankaj\LaravelLogValidator\Processors\Processor;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger as MonologLogger;
@@ -32,6 +33,7 @@ final class Logger
         $logger->pushHandler($handler);
 
         $logger->pushProcessor(new Processor($config));
+        $logger->pushProcessor(new EnvironmentProcessor);
 
         if (isset($config['processors']) && is_array($config['processors'])) {
             foreach ($config['processors'] as $processorClass) {
