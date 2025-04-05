@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
 use Illuminate\Support\Facades\Log;
 
@@ -33,7 +35,7 @@ test('log context has less than 10 fields', function () {
     expect(function () use ($validContext) {
         Log::info('Valid context test', $validContext);
     })->not->toThrow(UnprocessableLogException::class);
-})->only();
+});
 
 test('log context has more than 10 fields', function () {
     $invalidContext = [

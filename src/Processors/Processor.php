@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aagjalpankaj\LaravelLogValidator\Processors;
 
 use Aagjalpankaj\LaravelLogValidator\Validators\LogContextValidator;
