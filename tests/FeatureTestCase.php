@@ -6,6 +6,8 @@ namespace Tests;
 
 use Aagjalpankaj\LaravelLogValidator\Logger;
 use Illuminate\Contracts\Config\Repository;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\PsrLogMessageProcessor;
 use Orchestra\Testbench\TestCase;
 
 abstract class FeatureTestCase extends TestCase
@@ -16,6 +18,14 @@ abstract class FeatureTestCase extends TestCase
             $config->set('logging.channels.custom', [
                 'driver' => 'custom',
                 'via' => Logger::class,
+                'level' => env('LOG_LEVEL', 'debug'),
+                'handler' => StreamHandler::class,
+                'with' => [
+                    storage_path('logs/laravel.log'),
+                    'debug',
+                ],
+                'formatter' => env('LOG_STDERR_FORMATTER'),
+                'processors' => [PsrLogMessageProcessor::class],
             ]);
 
             $config->set('logging.default', 'custom');
@@ -27,11 +37,5 @@ abstract class FeatureTestCase extends TestCase
         $router->get('/', function () {
             return response()->json(['message' => 'Welcome to Laravel Log Validator']);
         })->name('home');
-
-        $router->get('/log-test', function () {
-            logger()->info('Test log message', ['context' => 'testing']);
-
-            return response()->json(['status' => 'logged']);
-        })->name('log.test');
     }
 }

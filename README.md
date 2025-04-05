@@ -18,15 +18,23 @@ composer require aagjalpankaj/laravel-log-validator
 
 Create custom channel in `logging.php`:
 ```bash
-'llv' => [
-  'driver' => 'llv',
-  'via' => Aagjalpankaj\LaravelLogValidator\Logger::class,
-]
+'custom' => [
+    'driver' => 'monolog',
+    'via' => Aagjalpankaj\LaravelLogValidator\Logger::class,
+    'level' => env('LOG_LEVEL', 'debug'),
+    'handler' => StreamHandler::class,
+    'formatter' => env('LOG_STDERR_FORMATTER'),
+    'with' => [
+        storage_path('logs/laravel.log'),
+        'debug',
+    ],
+    'processors' => [PsrLogMessageProcessor::class],
+],
 ```
 
 Update logging driver in `.env`:
 ```bash
-LOG_CHANNEL=llv
+LOG_CHANNEL=custom
 ```
 
 ### TODO
@@ -39,43 +47,3 @@ LOG_CHANNEL=llv
 - [ ] Validator: Validates log context: naming convention & type of each key-value.
 - [ ] Validator: Validates log message format.
 - [ ] Validator: When environment is not production and log doesn't comply with above requirements, throws `UnprocessableLogException`.
-
-```
-{
-  "timestamp": "2025-04-03T12:34:56.789Z",
-  "level": "error",
-  "message": "User authentication failed",
-  "context": {
-    "user_id": 12345,
-    "ip_address": "192.168.1.1"
-  },
-  "metadata": {
-    "transaction_id": "abc-123-xyz",
-    "service": "auth-service",
-    "env": "production"
-  }
-}
-```
-
-```
-{
-  "timestamp": "2025-04-03T14:20:15.456Z",
-  "level": "error",
-  "message": "SQLSTATE[HY000]: General error: 1364 Field 'email' doesn't have a default value",
-  "exception": {
-    "class": "Illuminate\\Database\\QueryException",
-    "file": "/var/www/html/app/Models/User.php",
-    "line": 45,
-    "trace": [
-      "Illuminate\\Database\\Connection:runQueryCallback (vendor/laravel/framework/src/Illuminate/Database/Connection.php:695)",
-      "Illuminate\\Database\\QueryException:__construct (vendor/laravel/framework/src/Illuminate/Database/QueryException.php:42)"
-    ]
-  },
-  "context": {
-    "request_id": "abc-123",
-    "user_id": 12,
-    "ip": "192.168.1.10",
-    "url": "https://example.com/register"
-  }
-}
-```
