@@ -17,7 +17,7 @@ test('log message above 50 chars', function () {
     })->toThrow(UnprocessableLogException::class);
 });
 
-test('log context has less than 10 context fields', function () {
+test('log context has less than 10 fields', function () {
     $validContext = [
         'field1' => 'value1',
         'field2' => 'value2',
@@ -35,7 +35,7 @@ test('log context has less than 10 context fields', function () {
     })->not->toThrow(UnprocessableLogException::class);
 });
 
-test('log context has more than 10 context fields', function () {
+test('log context has more than 10 fields', function () {
     $invalidContext = [
         'field1' => 'value1',
         'field2' => 'value2',
