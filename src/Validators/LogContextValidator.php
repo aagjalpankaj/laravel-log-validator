@@ -2,4 +2,20 @@
 
 namespace Aagjalpankaj\LaravelLogValidator\Validators;
 
-final class LogContextValidator {}
+use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
+use Monolog\LogRecord;
+
+final class LogContextValidator {
+    private int $maxFields = 10;
+
+    public function validate(LogRecord $record): bool
+    {
+        $context = $record->context;
+        
+        if (count($context) > $this->maxFields) {
+            throw new UnprocessableLogException('Log context cannot have more than 10 fields');
+        }
+        
+        return true;
+    }
+}

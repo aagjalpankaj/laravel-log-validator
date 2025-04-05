@@ -7,7 +7,7 @@ use Monolog\LogRecord;
 
 final class LogMessageValidator
 {
-    private int $maxLength = 120;
+    private int $maxLength = 50;
 
     public function validate(LogRecord $record): bool
     {
