@@ -49,15 +49,14 @@
             "@build",
             "@php vendor/bin/testbench serve --ansi"
         ],
-        "lint": [
-            "@php vendor/bin/pint --ansi",
-            "@php vendor/bin/phpstan analyse --verbose --ansi"
-        ],
-        "test": [
-            "@clear",
-            "@php vendor/bin/pest"
-        ]
-    },
+        "lint": ["pint --test"],
+        "lint.fix": ["pint"],
+		"rector": ["rector --dry-run"],
+		"rector.fix": ["rector"],
+        "test": ["@clear", "pest"],
+	  	"ci": ["@lint", "@rector", "@test"],
+	  	"ci.fix": ["@lint.fix", "@rector.fix"]
+	},
     "extra": {
         "laravel": {
             "providers": [

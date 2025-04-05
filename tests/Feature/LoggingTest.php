@@ -29,7 +29,7 @@ test('log context has less than 10 context fields', function () {
         'field8' => 'value8',
         'field9' => 'value9',
     ];
-    
+
     expect(function () use ($validContext) {
         Log::info('Valid context test', $validContext);
     })->not->toThrow(UnprocessableLogException::class);
@@ -49,7 +49,7 @@ test('log context has more than 10 context fields', function () {
         'field10' => 'value10',
         'field11' => 'value11', // This exceeds the limit
     ];
-    
+
     expect(function () use ($invalidContext) {
         Log::info('Invalid context test', $invalidContext);
     })->toThrow(UnprocessableLogException::class);
