@@ -7,6 +7,7 @@ namespace Aagjalpankaj\LaravelLogValidator\Processors;
 use Aagjalpankaj\LaravelLogValidator\Validators\LogContextValidator;
 use Aagjalpankaj\LaravelLogValidator\Validators\LogMessageValidator;
 use Monolog\LogRecord;
+use Throwable;
 
 readonly class Processor
 {
@@ -19,6 +20,11 @@ readonly class Processor
         $validateOnlyOn = config('laravel-log-validator.validate_only_on', ['local', 'testing', 'staging']);
 
         if (! in_array($currentEnv, $validateOnlyOn)) {
+            return $record;
+        }
+
+        // Skip validation if logging an exception
+        if (isset($record->context['exception']) && $record->context['exception'] instanceof Throwable) {
             return $record;
         }
 
