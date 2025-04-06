@@ -1,13 +1,10 @@
 # Laravel Log Validator
-Laravel package that validates logs runtime and ensures consistency in logging all across your application.
-It helps maintain consistent logging patterns across your entire application ecosystem, making log aggregation, searching, and analysis more efficient.
 
-## Features
+**Laravel Log Validator** validates logs at runtime in non-production environments, helping to make logging more concise and consistent across your application.
 
-- **Message Validation**: Ensures log messages follow consistent patterns and length constraints
-- **Structured Logging**: Enforces structured log formats for better searchability
-- **Error Handling**: Provides clear exceptions when logs don't meet validation criteria
-- **Extensible Architecture**: Easily add custom validators and processors
+It not only validates logs but also adds additional application metadata, making log aggregation, searching, and analysis more efficient.
+
+It is built on top of [Monolog](https://github.com/Seldaek/monolog), so you stream logs wherever you want.
 
 ## Installation
 
@@ -37,13 +34,9 @@ Update logging driver in `.env`:
 LOG_CHANNEL=custom
 ```
 
-### TODO
-
-- [ ] Formatter: Log is in JSON format.
-- [ ] Processor: Transaction ID is added and passed to every incoming & outgoing request and log message.
-- [ ] Processor: Log meta: environment, component, level, etc. is validated and added.
-- [ ] Validator: Environment is added with correct naming convention.
-- [ ] Processor: Log context is added under the `context` key.
-- [ ] Validator: Validates log context: naming convention & type of each key-value.
-- [ ] Validator: Validates log message format.
-- [ ] Validator: When environment is not production and log doesn't comply with above requirements, throws `UnprocessableLogException`.
+## Features
+- Validates log message with context and throws `UnprocessableLogException` — configurable, default non-prod environments.
+- Adds application meta (application name & environment) that log aggregation, searching, and analysis more efficient.
+- Adds and passes request id.
+- Throws `ExcessiveLogsException` when a request exceeds number of logs — configurable, default non-prod environments.
+- `LogsInsightsCommand` gives you quick insights about logging in your application.
