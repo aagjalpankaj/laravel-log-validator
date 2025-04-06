@@ -14,6 +14,8 @@ abstract class FeatureTestCase extends TestCase
 {
     protected function defineEnvironment($app): void
     {
+        $app['env'] = 'local';
+
         tap($app['config'], function (Repository $config) {
             $config->set('logging.channels.custom', [
                 'driver' => 'custom',
