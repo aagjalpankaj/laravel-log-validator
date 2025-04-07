@@ -13,6 +13,8 @@ final class ServiceProvider extends BaseServiceProvider
         $this->publishes([
             __DIR__.'/../config/laravel-log-validator.php' => config_path('laravel-log-validator.php'),
         ], 'laravel-log-validator-config');
+
+        $this->registerCommands();
     }
 
     public function register(): void
@@ -20,5 +22,14 @@ final class ServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-log-validator.php', 'laravel-log-validator'
         );
+    }
+
+    private function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Commands\LogInsightsCommand::class,
+            ]);
+        }
     }
 }
