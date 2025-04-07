@@ -1,13 +1,7 @@
 {
     "name": "aagjalpankaj/laravel-log-validator",
-    "description": "Laravel package that helps you to standardize logs",
-    "keywords": [
-        "laravel",
-        "log",
-        "validator",
-        "standardization",
-        "logging"
-    ],
+    "description": "Make logging concise and consistent!",
+    "keywords": ["laravel", "logging", "validator", "consistent"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
