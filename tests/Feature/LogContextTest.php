@@ -52,3 +52,34 @@ test('log context has a field with no camelcase', function () {
         Log::info('Invalid context test', $invalidContext);
     })->toThrow(UnprocessableLogException::class);
 });
+
+test('log context accepts scalar values and arrays of scalars', function (string $key, $value) {
+    $context = [$key => $value];
+
+    expect(function () use ($context) {
+        Log::info('Valid scalar context test', $context);
+    })->not->toThrow(UnprocessableLogException::class);
+})->with([
+    ['intValue', 123],
+    ['floatValue', 123.45],
+    ['stringValue', 'test'],
+    ['boolValue', true],
+    ['nullValue', null],
+    ['scalarArray', [1, 2.3, 'string', true, null]],
+]);
+
+test('log context rejects non-scalar values and nested arrays', function (string $key, $value) {
+    $context = [$key => $value];
+
+    expect(function () use ($context) {
+        Log::info('Invalid scalar context test', $context);
+    })->toThrow(UnprocessableLogException::class);
+})->with([
+    ['objectValue', new stdClass],
+    ['nestedArrayValue', ['nested' => []]],
+    ['resourceValue', fopen('php://memory', 'r')],
+    ['closureValue', function () {
+        return 'test';
+    }],
+    ['mixedArray', [1, new stdClass, 'string']],
+]);
