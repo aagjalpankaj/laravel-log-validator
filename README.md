@@ -16,7 +16,7 @@ composer require aagjalpankaj/laravel-log-validator
 Create custom channel in `logging.php`:
 ```bash
 'custom' => [
-    'driver' => 'monolog',
+    'driver' => 'custom',
     'via' => Aagjalpankaj\LaravelLogValidator\Logger::class,
     'level' => env('LOG_LEVEL', 'debug'),
     'handler' => StreamHandler::class,
@@ -35,8 +35,6 @@ LOG_CHANNEL=custom
 ```
 
 ## Features
-- Validates log message with context and throws `UnprocessableLogException` — configurable, default non-prod environments.
+- Validates log message including context and throws `UnprocessableLogException` — configurable, default for non-prod environments.
 - Adds application meta (application name & environment) that log aggregation, searching, and analysis more efficient.
-- Adds and passes request id.
-- Throws `ExcessiveLogsException` when a request exceeds number of logs — configurable, default non-prod environments.
-- `LogsInsightsCommand` gives you quick insights about logging in your application.
+- `artisan log:insights` gives you quick insights about logging in your application.

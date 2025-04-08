@@ -7,7 +7,7 @@ namespace Aagjalpankaj\LaravelLogValidator\Validators;
 use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
 use Monolog\LogRecord;
 
-final class LogMessageValidator
+final class LogMessageValidator implements ValidatorInterface
 {
     private int $maxLength = 50;
 

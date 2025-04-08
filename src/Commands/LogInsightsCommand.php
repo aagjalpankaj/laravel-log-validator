@@ -20,14 +20,23 @@ class LogInsightsCommand extends Command
 
     public function handle(): void
     {
-        $this->info('Analyzing log usage in the app directory...');
+        $this->output->title('Log Usage Analysis');
+
+        $this->output->section('Analyzing log usage in the app directory...');
 
         $files = File::allFiles(app_path());
         $this->initializeCounts();
 
+        $progressBar = $this->output->createProgressBar(count($files));
+        $progressBar->start();
+
         foreach ($files as $file) {
             $this->analyzeFile($file);
+            $progressBar->advance();
         }
+
+        $progressBar->finish();
+        $this->output->newLine(2);
 
         $this->displayResults();
     }
@@ -50,11 +59,44 @@ class LogInsightsCommand extends Command
 
     private function displayResults(): void
     {
-        $this->info('Log usage summary:');
+        $this->output->section('Log Usage Summary');
+
         $rows = [];
+        $totalLogs = 0;
         foreach ($this->logMethods as $method) {
-            $rows[] = [$method, $this->counts[$method]];
+            $count = $this->counts[$method];
+            $totalLogs += $count;
+            $rows[] = [$this->colorizeMethod($method), $count, $this->getPercentage($count, $totalLogs)];
         }
-        $this->table(['Log Level', 'Count'], $rows);
+
+        $this->table(['Log Level', 'Count', 'Percentage'], $rows);
+
+        $this->output->newLine();
+        $this->info("Total log calls: $totalLogs");
+    }
+
+    private function colorizeMethod(string $method): string
+    {
+        $colors = [
+            'emergency' => 'red',
+            'alert' => 'red',
+            'critical' => 'red',
+            'error' => 'red',
+            'warning' => 'yellow',
+            'notice' => 'yellow',
+            'info' => 'green',
+            'debug' => 'blue',
+        ];
+
+        return "<fg={$colors[$method]}>{$method}</>";
+    }
+
+    private function getPercentage(int $count, int $total): string
+    {
+        if ($total === 0) {
+            return '0.00%';
+        }
+
+        return number_format(($count / $total) * 100, 2).'%';
     }
 }
