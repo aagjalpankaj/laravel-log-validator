@@ -7,29 +7,33 @@ composer require aagjalpankaj/laravel-log-validator
 
 ### Publish the config:
 ```bash
-php artisan vendor:publish
+php artisan vendor:publish --provider="Aagjalpankaj\LaravelLogValidator\ServiceProvider"
 ```
 
 ### Configure logging channel
 
-If you're already using monolog channel, just configure below option
+If you're already using monolog channel, just configure `tap` option as below:
 
 ```
-'tap' => [Logger::class]
+'single' => [
+    'driver' => 'single',
+    'tap' => [Aagjalpankaj\LaravelLogValidator\Logger::class],
+    // other existing configuration...
+],
 ```
 
-Otherwise, create new one, e.g:
+Otherwise, create new one monolog channel, e.g:
 ```bash
 'single' => [
     'driver' => 'single',
-    'tap' => [Logger::class],
+    'tap' => [Aagjalpankaj\LaravelLogValidator\Logger::class],
     'path' => storage_path('logs/laravel.log'),
     'level' => env('LOG_LEVEL', 'debug'),
     'replace_placeholders' => true,
 ],
 ```
 
-Update logging driver in `.env`:
+Change logging driver in `.env` accordingly:
 ```bash
 LOG_CHANNEL=single
 ```
