@@ -12,7 +12,7 @@ final class ServiceProvider extends BaseServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/laravel-log-validator.php' => config_path('laravel-log-validator.php'),
-        ], 'laravel-log-validator-config');
+        ], 'laravel-log-validator');
 
         $this->registerCommands();
     }

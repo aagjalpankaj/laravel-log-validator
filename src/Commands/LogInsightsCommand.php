@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Aagjalpankaj\LaravelLogValidator\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -22,15 +23,29 @@ class LogInsightsCommand extends Command
     {
         $this->output->title('Log Usage Analysis');
 
-        $this->output->section('Analyzing log usage in the app directory...');
-
-        $files = File::allFiles(app_path());
+        $directories = Config::get('laravel-log-validator.insights.scan_directories', ['app']);
         $this->initializeCounts();
+        $totalFiles = 0;
+        $allFiles = [];
 
-        $progressBar = $this->output->createProgressBar(count($files));
+        foreach ($directories as $directory) {
+            $path = base_path($directory);
+            if (! File::isDirectory($path)) {
+                $this->output->warning("Directory not found: {$directory}");
+
+                continue;
+            }
+
+            $this->output->section("Analyzing log usage in the {$directory} directory...");
+            $files = File::allFiles($path);
+            $totalFiles += count($files);
+            $allFiles = array_merge($allFiles, $files);
+        }
+
+        $progressBar = $this->output->createProgressBar($totalFiles);
         $progressBar->start();
 
-        foreach ($files as $file) {
+        foreach ($allFiles as $file) {
             $this->analyzeFile($file);
             $progressBar->advance();
         }
