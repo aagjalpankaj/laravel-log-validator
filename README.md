@@ -1,40 +1,16 @@
 # Laravel Log Validator
 
-**Laravel Log Validator** validates logs at runtime in non-production environments, helping to make logging more concise and consistent across your application.
+## About
 
-It not only validates logs but also adds additional application metadata, making log aggregation, searching, and analysis more efficient.
+**Laravel Log Validator** validates logs at runtime without adding any overhead on production environment, helps making logs more concise and consistent across your applications.
 
-It is built on top of [Monolog](https://github.com/Seldaek/monolog), so you stream logs wherever you want.
+It not only validates logs but also adds additional application metadata (such as APP_ENV, APP_NAME, etc) that makes log aggregation, searching, and analysis more efficient.
 
-## Installation
+✨ **Monolog power:** It is built on top of [Monolog](https://github.com/Seldaek/monolog), so you don't lose power of monolog.
 
-Install the package:
-```bash
-composer require aagjalpankaj/laravel-log-validator
-```
+✨ **No vendor-lock-in:** At any time, you can plug-in and plug-out this package easily without any refactoring.
 
-Create custom channel in `logging.php`:
-```bash
-'custom' => [
-    'driver' => 'custom',
-    'via' => Aagjalpankaj\LaravelLogValidator\Logger::class,
-    'level' => env('LOG_LEVEL', 'debug'),
-    'handler' => StreamHandler::class,
-    'formatter' => env('LOG_STDERR_FORMATTER'),
-    'with' => [
-        storage_path('logs/laravel.log'),
-        'debug',
-    ],
-    'processors' => [PsrLogMessageProcessor::class],
-],
-```
+## Quick-start
 
-Update logging driver in `.env`:
-```bash
-LOG_CHANNEL=custom
-```
-
-## Features
-- Validates log message including context and throws `UnprocessableLogException` — configurable, default for non-prod environments.
-- Adds application meta (application name & environment) that log aggregation, searching, and analysis more efficient.
-- `artisan log:insights` gives you quick insights about logging in your application.
+- [Installation](./docs/100-INSTALLATION.md)
+- [Usage](./docs/200-USAGE.md)

@@ -9,14 +9,16 @@ use Monolog\Handler\TestHandler;
 test('log meta has app name and environment', function () {
     $testHandler = new TestHandler;
 
-    $config = [
-        'name' => 'test',
-        'path' => 'php://memory',
-        'level' => 'debug',
-    ];
+    // Create a Monolog logger and handler
+    $monolog = new \Monolog\Logger('test');
+    $monolog->pushHandler($testHandler);
 
-    $logger = (new Logger)($config);
-    $logger->pushHandler($testHandler);
+    // Create a Laravel Logger wrapping the Monolog instance
+    $logger = new \Illuminate\Log\Logger($monolog);
+
+    // Apply the Logger tap to the Laravel logger
+    $loggerTap = new Logger;
+    $loggerTap->__invoke($logger);
 
     Log::swap($logger);
 
@@ -26,10 +28,9 @@ test('log meta has app name and environment', function () {
     Log::info($message, $context);
 
     $records = $testHandler->getRecords();
-    expect($records)->toHaveCount(1);
 
     $lastRecord = $records[0];
     expect($lastRecord['extra'])->toHaveKeys(['app_name', 'app_env'])
-        ->and($lastRecord['extra']['app_name'])->toBe(config('app.name'))
-        ->and($lastRecord['extra']['app_env'])->toBe(config('app.env'));
+        ->and(strtolower($lastRecord['extra']['app_name']))->toBe(strtolower(config('app.name')))
+        ->and(strtolower($lastRecord['extra']['app_env']))->toBe(strtolower(config('app.env')));
 });

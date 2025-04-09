@@ -11,8 +11,6 @@ use Throwable;
 
 readonly class Processor
 {
-    public function __construct(public array $config) {}
-
     public function __invoke(LogRecord $record): LogRecord
     {
         // Skip validation if current environment is not in the validate_only_on list

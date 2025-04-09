@@ -9,60 +9,25 @@ use Aagjalpankaj\LaravelLogValidator\Formatters\AppNameFormatter;
 use Aagjalpankaj\LaravelLogValidator\Processors\AppEnvProcessor;
 use Aagjalpankaj\LaravelLogValidator\Processors\AppNameProcessor;
 use Aagjalpankaj\LaravelLogValidator\Processors\Processor;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger as MonologLogger;
-use Psr\Log\LoggerInterface;
+use Illuminate\Log\Logger as LaravelLogger;
+use Monolog\LogRecord;
 
 final class Logger
 {
-    public function __invoke(array $config): LoggerInterface
+    public function __invoke(LaravelLogger $logger): void
     {
-        $logger = new MonologLogger($config['name'] ?? 'custom');
+        foreach ($logger->getHandlers() as $handler) {
+            $handler->pushProcessor(function ($record): LogRecord {
+                $appNameFormatter = new AppNameFormatter;
+                $appEnvFormatter = new AppEnvFormatter;
+                $record = $appNameFormatter->format($record);
 
-        if (isset($config['handler'])) {
-            $handlerClass = $config['handler'];
-            $handlerParams = $config['with'] ?? [];
-            $handler = new $handlerClass(...array_values($handlerParams));
-
-            if (isset($config['formatter'])) {
-                $formatterClass = $config['formatter'];
-                $formatter = new $formatterClass;
-            } else {
-                // Use LineFormatter as default
-                $formatter = new LineFormatter(null, null, true, true);
-            }
-        } else {
-            $path = $config['path'] ?? storage_path('logs/custom.log');
-            $handler = new StreamHandler($path);
-            $formatter = new LineFormatter(null, null, true, true);
+                return $appEnvFormatter->format($record);
+            });
         }
 
-        // Apply the formatter
-        $handler->setFormatter($formatter);
-
-        // Apply custom formatters as processors
-        $handler->pushProcessor(function ($record): \Monolog\LogRecord {
-            $appNameFormatter = new AppNameFormatter;
-            $appEnvFormatter = new AppEnvFormatter;
-            $record = $appNameFormatter->format($record);
-
-            return $appEnvFormatter->format($record);
-        });
-
-        $logger->pushHandler($handler);
-
-        $logger->pushProcessor(new Processor($config));
+        $logger->pushProcessor(new Processor);
         $logger->pushProcessor(new AppNameProcessor);
         $logger->pushProcessor(new AppEnvProcessor);
-
-        if (isset($config['processors']) && is_array($config['processors'])) {
-            foreach ($config['processors'] as $processorClass) {
-                $processor = new $processorClass;
-                $logger->pushProcessor($processor);
-            }
-        }
-
-        return $logger;
     }
 }

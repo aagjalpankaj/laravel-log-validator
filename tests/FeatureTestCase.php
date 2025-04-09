@@ -6,8 +6,6 @@ namespace Tests;
 
 use Aagjalpankaj\LaravelLogValidator\Logger;
 use Illuminate\Contracts\Config\Repository;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
 use Orchestra\Testbench\TestCase;
 
 abstract class FeatureTestCase extends TestCase
@@ -17,20 +15,16 @@ abstract class FeatureTestCase extends TestCase
         $app['env'] = 'local';
 
         tap($app['config'], function (Repository $config) {
-            $config->set('logging.channels.custom', [
-                'driver' => 'custom',
-                'via' => Logger::class,
+
+            $config->set('logging.channels.single', [
+                'driver' => 'single',
+                'tap' => [Logger::class],
+                'path' => storage_path('logs/laravel.log'),
                 'level' => env('LOG_LEVEL', 'debug'),
-                'handler' => StreamHandler::class,
-                'with' => [
-                    storage_path('logs/laravel.log'),
-                    'debug',
-                ],
-                'formatter' => env('LOG_STDERR_FORMATTER'),
-                'processors' => [PsrLogMessageProcessor::class],
+                'replace_placeholders' => true,
             ]);
 
-            $config->set('logging.default', 'custom');
+            $config->set('logging.default', 'single');
         });
     }
 
