@@ -13,7 +13,6 @@ readonly class Processor
 {
     public function __invoke(LogRecord $record): LogRecord
     {
-        // Skip validation if current environment is not in the validate_only_on list
         $currentEnv = app()->environment();
         $validateOnlyOn = config('laravel-log-validator.validate_only_on', ['local', 'testing', 'staging']);
 
@@ -21,7 +20,6 @@ readonly class Processor
             return $record;
         }
 
-        // Skip validation if logging an exception
         if (isset($record->context['exception']) && $record->context['exception'] instanceof Throwable) {
             return $record;
         }

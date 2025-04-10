@@ -14,7 +14,7 @@ php artisan vendor:publish --provider="Aagjalpankaj\LaravelLogValidator\ServiceP
 
 If you're already using monolog channel, just configure `tap` option as below:
 
-```
+```php
 'single' => [
     'driver' => 'single',
     'tap' => [Aagjalpankaj\LaravelLogValidator\Logger::class],
@@ -22,8 +22,8 @@ If you're already using monolog channel, just configure `tap` option as below:
 ],
 ```
 
-Otherwise, create new one monolog channel, e.g:
-```bash
+Otherwise, create a new monolog channel with `tap` option, e.g:
+```php
 'single' => [
     'driver' => 'single',
     'tap' => [Aagjalpankaj\LaravelLogValidator\Logger::class],
@@ -33,7 +33,9 @@ Otherwise, create new one monolog channel, e.g:
 ],
 ```
 
-Change logging driver in `.env` accordingly:
+Update logging channel in `.env` accordingly:
 ```bash
 LOG_CHANNEL=single
 ```
+---
+Optionally, you can configure options as per your preferences in the [config file](../config/laravel-log-validator.php).

@@ -27,7 +27,12 @@ final class Logger
         }
 
         $logger->pushProcessor(new Processor);
-        $logger->pushProcessor(new AppNameProcessor);
-        $logger->pushProcessor(new AppEnvProcessor);
+        if (config('laravel-log-validator.metadata.include_app_name', true)) {
+            $logger->pushProcessor(new AppNameProcessor);
+        }
+
+        if (config('laravel-log-validator.metadata.include_app_env', true)) {
+            $logger->pushProcessor(new AppEnvProcessor);
+        }
     }
 }

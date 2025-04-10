@@ -22,7 +22,7 @@ return [
     | Configure the validation rules for log messages.
     |
     */
-    'message' => [
+    'log_message' => [
         'max_length' => 50,
     ],
 
@@ -34,7 +34,7 @@ return [
     | Configure the validation rules for log context arrays.
     |
     */
-    'context' => [
+    'log_context' => [
         'max_fields' => 10,
     ],
 
@@ -46,7 +46,7 @@ return [
     | Configure additional metadata to be added to each log entry.
     |
     */
-    'metadata' => [
+    'log_meta' => [
         'include_app_name' => true,
         'include_app_env' => true,
     ],
