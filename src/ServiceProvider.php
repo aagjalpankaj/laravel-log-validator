@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator;
+namespace Aagjalpankaj\Lalo;
 
-use Aagjalpankaj\LaravelLogValidator\Middleware\RequestIdMiddleware;
+use Aagjalpankaj\Lalo\Middleware\RequestIdMiddleware;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider
@@ -12,7 +12,7 @@ final class ServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/laravel-log-validator.php' => config_path('laravel-log-validator.php'),
+            __DIR__.'/../config/lalo.php' => config_path('lalo.php'),
         ], 'config');
 
         $this->registerCommands();
@@ -26,7 +26,7 @@ final class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/laravel-log-validator.php', 'laravel-log-validator'
+            __DIR__.'/../config/lalo.php', 'lalo'
         );
     }
 

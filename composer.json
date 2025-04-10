@@ -1,6 +1,6 @@
 {
-    "name": "aagjalpankaj/laravel-log-validator",
-    "description": "Make logging concise and consistent!",
+    "name": "aagjalpankaj/lalo",
+    "description": "Laravel Logger: Make logging concise and consistent!",
     "keywords": ["laravel", "logging", "validator", "consistent"],
     "license": "MIT",
     "require": {
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Aagjalpankaj\\LaravelLogValidator\\": "src/"
+            "Aagjalpankaj\\Lalo\\": "src/"
         }
     },
     "autoload-dev": {
@@ -58,7 +58,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Aagjalpankaj\\LaravelLogValidator\\ServiceProvider"
+                "Aagjalpankaj\\Lalo\\ServiceProvider"
             ]
         }
     },

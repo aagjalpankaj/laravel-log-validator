@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
+use Aagjalpankaj\Lalo\Exceptions\UnprocessableLogException;
 use Illuminate\Support\Facades\Log;
 
 test('log message under 50 chars', function () {

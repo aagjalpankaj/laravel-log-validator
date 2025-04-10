@@ -44,4 +44,4 @@ Logs containing an exception in their context are exempted from validation. This
 
 ### Environment Configuration
 
-By default, validations only run in non-production environments (`local`, `testing`, `staging`). You can customize this in the `laravel-log-validator.php` config file.
+By default, validations only run in non-production environments (`local`, `testing`, `staging`). You can customize this in the `lalo.php` config file.

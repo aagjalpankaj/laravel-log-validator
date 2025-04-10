@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Commands;
+namespace Aagjalpankaj\Lalo\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
@@ -11,7 +11,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class LogInsightsCommand extends Command
 {
-    protected $signature = 'log:insights';
+    protected $signature = 'lalo:insights';
 
     protected $description = 'Analyze log usage';
 
@@ -23,7 +23,7 @@ class LogInsightsCommand extends Command
     {
         $this->output->title('Log Usage Analysis');
 
-        $directories = Config::get('laravel-log-validator.insights.scan_directories', ['app']);
+        $directories = Config::get('lalo.insights.scan_directories', ['app']);
         $this->initializeCounts();
         $totalFiles = 0;
         $allFiles = [];

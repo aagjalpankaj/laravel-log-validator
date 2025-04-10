@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
+use Aagjalpankaj\Lalo\Exceptions\UnprocessableLogException;
 use Illuminate\Support\Facades\Log;
 
 test('log context has less than 10 fields', function () {

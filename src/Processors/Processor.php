@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Processors;
+namespace Aagjalpankaj\Lalo\Processors;
 
-use Aagjalpankaj\LaravelLogValidator\Validators\LogContextValidator;
-use Aagjalpankaj\LaravelLogValidator\Validators\LogMessageValidator;
+use Aagjalpankaj\Lalo\Validators\LogContextValidator;
+use Aagjalpankaj\Lalo\Validators\LogMessageValidator;
 use Monolog\LogRecord;
 use Throwable;
 
@@ -14,7 +14,7 @@ readonly class Processor
     public function __invoke(LogRecord $record): LogRecord
     {
         $currentEnv = app()->environment();
-        $validateOnlyOn = config('laravel-log-validator.validate_only_on', ['local', 'testing', 'staging']);
+        $validateOnlyOn = config('lalo.validate_only_on', ['local', 'testing', 'staging']);
 
         if (! in_array($currentEnv, $validateOnlyOn)) {
             return $record;

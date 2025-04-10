@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Aagjalpankaj\LaravelLogValidator\Exceptions\UnprocessableLogException;
+use Aagjalpankaj\Lalo\Exceptions\UnprocessableLogException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 test('validates only on non-production environment', function () {
     // Test with local environment (should validate)
-    Config::set('laravel-log-validator.validate_only_on', ['local', 'testing', 'staging']);
+    Config::set('lalo.validate_only_on', ['local', 'testing', 'staging']);
     app()->detectEnvironment(function () {
         return 'local';
     });

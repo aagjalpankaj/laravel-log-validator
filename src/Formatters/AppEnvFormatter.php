@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Formatters;
+namespace Aagjalpankaj\Lalo\Formatters;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;

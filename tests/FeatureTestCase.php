@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Aagjalpankaj\LaravelLogValidator\Logger;
-use Aagjalpankaj\LaravelLogValidator\ServiceProvider;
+use Aagjalpankaj\Lalo\Logger;
+use Aagjalpankaj\Lalo\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Orchestra\Testbench\TestCase;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Processors;
+namespace Aagjalpankaj\Lalo\Processors;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;

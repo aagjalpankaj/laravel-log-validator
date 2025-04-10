@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Middleware;
+namespace Aagjalpankaj\Lalo\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator;
+namespace Aagjalpankaj\Lalo;
 
-use Aagjalpankaj\LaravelLogValidator\Formatters\AppEnvFormatter;
-use Aagjalpankaj\LaravelLogValidator\Formatters\AppNameFormatter;
-use Aagjalpankaj\LaravelLogValidator\Processors\AppEnvProcessor;
-use Aagjalpankaj\LaravelLogValidator\Processors\AppNameProcessor;
-use Aagjalpankaj\LaravelLogValidator\Processors\Processor;
-use Aagjalpankaj\LaravelLogValidator\Processors\RequestIdProcessor;
+use Aagjalpankaj\Lalo\Formatters\AppEnvFormatter;
+use Aagjalpankaj\Lalo\Formatters\AppNameFormatter;
+use Aagjalpankaj\Lalo\Processors\AppEnvProcessor;
+use Aagjalpankaj\Lalo\Processors\AppNameProcessor;
+use Aagjalpankaj\Lalo\Processors\Processor;
+use Aagjalpankaj\Lalo\Processors\RequestIdProcessor;
 use Illuminate\Log\Logger as LaravelLogger;
 use Monolog\LogRecord;
 
@@ -28,15 +28,15 @@ final class Logger
         }
 
         $logger->pushProcessor(new Processor);
-        if (config('laravel-log-validator.metadata.include_app_name', true)) {
+        if (config('lalo.log_meta.include_app_name', true)) {
             $logger->pushProcessor(new AppNameProcessor);
         }
 
-        if (config('laravel-log-validator.metadata.include_app_env', true)) {
+        if (config('lalo.log_meta.include_app_env', true)) {
             $logger->pushProcessor(new AppEnvProcessor);
         }
 
-        if (config('laravel-log-validator.metadata.include_request_id', true)) {
+        if (config('lalo.log_meta.include_request_id', true)) {
             $logger->pushProcessor(new RequestIdProcessor);
         }
     }

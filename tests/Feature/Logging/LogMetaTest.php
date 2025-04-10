@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Aagjalpankaj\LaravelLogValidator\Logger;
+use Aagjalpankaj\Lalo\Logger;
 use Illuminate\Support\Facades\Log;
 use Monolog\Handler\TestHandler;
 

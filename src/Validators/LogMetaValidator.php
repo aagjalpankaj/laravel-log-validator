@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Validators;
+namespace Aagjalpankaj\Lalo\Validators;
 
 final class LogMetaValidator {}

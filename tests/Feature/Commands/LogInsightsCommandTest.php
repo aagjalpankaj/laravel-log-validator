@@ -13,7 +13,7 @@ beforeEach(function () {
     }
 
     // Configure the command to scan our test directory
-    Config::set('laravel-log-validator.insights.scan_directories', [
+    Config::set('lalo.insights.scan_directories', [
         'storage/framework/testing/log-insights-test',
     ]);
 });
@@ -43,7 +43,7 @@ test('command analyzes log usage and displays statistics correctly', function ()
         Log::critical("Database connection failed");'
     );
 
-    $this->artisan('log:insights')
+    $this->artisan('lalo:insights')
         ->expectsOutputToContain('Log Usage Summary')
         ->expectsOutputToContain('info')
         ->expectsOutputToContain('2') // 2 info logs

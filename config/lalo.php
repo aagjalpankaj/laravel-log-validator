@@ -49,6 +49,7 @@ return [
     'log_meta' => [
         'include_app_name' => true,
         'include_app_env' => true,
+        'include_request_id' => true,
     ],
 
     /*
@@ -60,5 +61,7 @@ return [
     | These directories will be analyzed for logging patterns.
     |
     */
-    'source_directories' => ['app'],
+    'insights' => [
+        'source_directories' => ['app'],
+    ],
 ];

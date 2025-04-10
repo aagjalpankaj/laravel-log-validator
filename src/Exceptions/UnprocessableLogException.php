@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\LaravelLogValidator\Exceptions;
+namespace Aagjalpankaj\Lalo\Exceptions;
 
 use Exception;
 
