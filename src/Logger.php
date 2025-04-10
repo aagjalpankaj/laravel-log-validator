@@ -9,6 +9,7 @@ use Aagjalpankaj\LaravelLogValidator\Formatters\AppNameFormatter;
 use Aagjalpankaj\LaravelLogValidator\Processors\AppEnvProcessor;
 use Aagjalpankaj\LaravelLogValidator\Processors\AppNameProcessor;
 use Aagjalpankaj\LaravelLogValidator\Processors\Processor;
+use Aagjalpankaj\LaravelLogValidator\Processors\RequestIdProcessor;
 use Illuminate\Log\Logger as LaravelLogger;
 use Monolog\LogRecord;
 
@@ -33,6 +34,10 @@ final class Logger
 
         if (config('laravel-log-validator.metadata.include_app_env', true)) {
             $logger->pushProcessor(new AppEnvProcessor);
+        }
+
+        if (config('laravel-log-validator.metadata.include_request_id', true)) {
+            $logger->pushProcessor(new RequestIdProcessor);
         }
     }
 }
