@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Aagjalpankaj\LaravelLogValidator\Logger;
+use Aagjalpankaj\LaravelLogValidator\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Orchestra\Testbench\TestCase;
 
@@ -33,5 +34,12 @@ abstract class FeatureTestCase extends TestCase
         $router->get('/', function () {
             return response()->json(['message' => 'Welcome to Laravel Log Validator']);
         })->name('home');
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            ServiceProvider::class,
+        ];
     }
 }
