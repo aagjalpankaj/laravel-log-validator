@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Aagjalpankaj\Lalo\Middleware;
 
+use Aagjalpankaj\Lalo\Dto\TraceId;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RequestIdMiddleware
+class TraceIdMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $headerName = 'x-request-id';
+        $headerName = 'x-trace-id';
 
-        $requestId = $request->header($headerName) ?? uniqid('req-', true);
+        $requestId = $request->header($headerName) ?? TraceId::forWeb()->value;
 
         $request->headers->set($headerName, $requestId);
 

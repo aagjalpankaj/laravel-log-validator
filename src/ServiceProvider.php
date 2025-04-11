@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Aagjalpankaj\Lalo;
 
-use Aagjalpankaj\Lalo\Middleware\RequestIdMiddleware;
+use Aagjalpankaj\Lalo\Middleware\TraceIdMiddleware;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider
@@ -17,10 +17,12 @@ final class ServiceProvider extends BaseServiceProvider
 
         $this->registerCommands();
 
-        $this->app['router']->aliasMiddleware('request-id', RequestIdMiddleware::class);
+        if (config('lalo.log_meta.include_trace_id', true)) {
+            $this->app['router']->aliasMiddleware('trace-id', TraceIdMiddleware::class);
 
-        $this->app['router']->middlewareGroup('web', [RequestIdMiddleware::class]);
-        $this->app['router']->middlewareGroup('api', [RequestIdMiddleware::class]);
+            $this->app['router']->middlewareGroup('web', [TraceIdMiddleware::class]);
+            $this->app['router']->middlewareGroup('api', [TraceIdMiddleware::class]);
+        }
     }
 
     public function register(): void

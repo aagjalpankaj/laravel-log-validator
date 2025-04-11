@@ -9,7 +9,7 @@ use Aagjalpankaj\Lalo\Formatters\AppNameFormatter;
 use Aagjalpankaj\Lalo\Processors\AppEnvProcessor;
 use Aagjalpankaj\Lalo\Processors\AppNameProcessor;
 use Aagjalpankaj\Lalo\Processors\Processor;
-use Aagjalpankaj\Lalo\Processors\RequestIdProcessor;
+use Aagjalpankaj\Lalo\Processors\TraceIdProcessor;
 use Illuminate\Log\Logger as LaravelLogger;
 use Monolog\LogRecord;
 
@@ -28,6 +28,7 @@ final class Logger
         }
 
         $logger->pushProcessor(new Processor);
+
         if (config('lalo.log_meta.include_app_name', true)) {
             $logger->pushProcessor(new AppNameProcessor);
         }
@@ -36,8 +37,8 @@ final class Logger
             $logger->pushProcessor(new AppEnvProcessor);
         }
 
-        if (config('lalo.log_meta.include_request_id', true)) {
-            $logger->pushProcessor(new RequestIdProcessor);
+        if (config('lalo.log_meta.include_trace_id', true)) {
+            $logger->pushProcessor(new TraceIdProcessor);
         }
     }
 }

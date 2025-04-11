@@ -1,6 +1,6 @@
-## Validations
+# Validations
 
-Laravel Log Validator enforces several validation rules to ensure consistent and maintainable logs across your application:
+This package enforces several validation rules to ensure consistent and maintainable logs across your application:
 
 ### Message Validation
 

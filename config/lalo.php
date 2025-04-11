@@ -49,7 +49,7 @@ return [
     'log_meta' => [
         'include_app_name' => true,
         'include_app_env' => true,
-        'include_request_id' => true,
+        'include_trace_id' => true,
     ],
 
     /*

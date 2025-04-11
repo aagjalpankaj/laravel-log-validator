@@ -50,7 +50,7 @@
         "test": [
             "@clear",
             "php -r \"echo PHP_EOL . (extension_loaded('xdebug') ? 'Xdebug enabled - Running with coverage' : 'Xdebug not enabled - Running without coverage') . PHP_EOL;\"",
-            "php -r \"passthru(extension_loaded('xdebug') ? 'pest --coverage --min=90 --colors=always' : 'pest --colors=always');\""
+            "php -r \"passthru(extension_loaded('xdebug') ? 'pest --parallel --coverage --min=90 --colors=always' : 'pest --parallel --colors=always');\""
         ],
 	  	"ci": ["@lint", "@rector", "@test"],
 	  	"ci.fix": ["@lint.fix", "@rector.fix"]

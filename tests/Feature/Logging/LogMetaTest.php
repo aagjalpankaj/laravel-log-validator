@@ -27,8 +27,8 @@ test('log meta - app name, env and request id', function () {
     $records = $testHandler->getRecords();
 
     $lastRecord = $records[0];
-    expect($lastRecord['extra'])->toHaveKeys(['app_name', 'app_env', 'request_id'])
+    expect($lastRecord['extra'])->toHaveKeys(['app_name', 'app_env', 'trace_id'])
         ->and(strtolower($lastRecord['extra']['app_name']))->toBe(strtolower(config('app.name')))
         ->and(strtolower($lastRecord['extra']['app_env']))->toBe(strtolower(config('app.env')))
-        ->and($lastRecord['extra']['request_id'])->toStartWith('cli-');
+        ->and($lastRecord['extra']['trace_id'])->toStartWith('cli-');
 });

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Aagjalpankaj\Lalo\Validators;
 
+use Aagjalpankaj\Lalo\Contracts\ValidatorInterface;
 use Aagjalpankaj\Lalo\Exceptions\UnprocessableLogException;
 use Monolog\LogRecord;
 
