@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Aagjalpankaj\Lalo;
 
-use Aagjalpankaj\Lalo\Middleware\TraceIdMiddleware;
+use Aagjalpankaj\Lalo\Middlewares\TraceIdMiddleware;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider

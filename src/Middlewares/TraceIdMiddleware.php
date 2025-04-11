@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aagjalpankaj\Lalo\Middleware;
+namespace Aagjalpankaj\Lalo\Middlewares;
 
 use Aagjalpankaj\Lalo\Dto\TraceId;
 use Closure;
